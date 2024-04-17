@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor       Клиент       as Клиент
+boundary    Мобильное_приложение as МП
+control     Сервер_приложения as Сервер
+database    База_данных    as БД
+Клиент->МП: Загрузка данных о бонусном аккаунте
+Клиент++
+МП++
+МП->Сервер: GET bonus_accounts/72061eb0-faef-409c..
+Сервер++
+Сервер->БД: SELECT  FROM bonus_account WHERE ID=...
+БД++
+БД-->Сервер
+БД--
+Сервер-->МП: HTTPS 200OK +JSON
+Сервер--
+МП-->Клиент:Демонстрация клиенту актуальных данных
+МП--
+Клиент--
+@enduml
